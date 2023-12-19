@@ -1,0 +1,3 @@
+/Users/zhuangzhuang/CLionProjects/Module13/cmake-build-debug/CMakeFiles/Module13.dir
+/Users/zhuangzhuang/CLionProjects/Module13/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/zhuangzhuang/CLionProjects/Module13/cmake-build-debug/CMakeFiles/rebuild_cache.dir

@@ -1,0 +1,147 @@
+
+
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include "asm_parser.h"
+
+
+int read_asm_file (char* filename, char program [ROWS][COLS] ){
+
+    FILE *asm_file;
+    asm_file = fopen(filename ,"r");     //open file
+
+
+    if (asm_file == NULL){
+        printf("error2: read_asm_file() failed \n");
+        return 2;
+    }
+
+    int i=0;
+
+    while(fgets(program[i], COLS, asm_file)){
+
+        int newline = strlen(program[i]) -1 ;
+
+        //remove "newline" characters at the end of the lines
+        if(program[i][newline] == '\n'){
+
+            program[i][newline] = '\0';
+        }
+        //print 2D array test
+        puts(program[i]);
+        i++;
+    }
+    program[i][0] = '\0';
+    return 0;
+}
+
+
+int parse_instruction (char* instr, char* instr_bin_str){
+
+    char opcode_op[] = "0001";
+    char opcode_lo[] = "0101";
+
+    char ad000[] = "000";
+    char ad001[] = "001";
+    char ad010[] = "010";
+    char ad011[] = "011";
+
+
+    int i =0;
+    char* token[5];
+    token[0] = strtok(instr, " ,");
+
+    while (token[i] != NULL){
+
+        i++;
+        token[i] = strtok(NULL," ,");
+    }
+
+
+    if(strcmp(token[0], "ADD") == 0 ){
+        strcpy(instr_bin_str,opcode_op);
+    } else if(strcmp(token[0], "MUL") == 0 ){
+        strcpy(instr_bin_str,opcode_op);
+    } else if(strcmp(token[0], "SUB") == 0 ){
+        strcpy(instr_bin_str,opcode_op);
+    } else if(strcmp(token[0], "DIV") == 0 ){
+        strcpy(instr_bin_str,opcode_op);
+    } else if(strcmp(token[0], "AND") == 0 ){
+        strcpy(instr_bin_str,opcode_lo);
+    }else if(strcmp(token[0], "OR") == 0 ){
+        strcpy(instr_bin_str,opcode_lo);
+    } else if(strcmp(token[0], "XOR") == 0){
+        strcpy(instr_bin_str,opcode_lo);
+    }
+
+
+
+    if(strcmp(token[1], "R1") == 0 ){
+        strcat(instr_bin_str,ad001);
+    }else if(strcmp(token[1], "R2") == 0 ){
+        strcat(instr_bin_str,ad010);
+    }else if(strcmp(token[1], "R3") == 0 ){
+        strcat(instr_bin_str,ad011);
+    }else if(strcmp(token[1], "R0") == 0 ){
+        strcat(instr_bin_str,ad000);
+    }
+
+    if(strcmp(token[2], "R1") == 0 ){
+        strcat(instr_bin_str,ad001);
+    }else if(strcmp(token[2], "R2") == 0 ){
+        strcat(instr_bin_str,ad010);
+    }else if(strcmp(token[2], "R3") == 0 ){
+        strcat(instr_bin_str,ad011);
+    }else if(strcmp(token[2], "R0") == 0 ){
+        strcat(instr_bin_str,ad000);
+    }
+
+    if(strcmp(token[0], "ADD") == 0 ){
+        strcat(instr_bin_str,ad000);
+    } else if(strcmp(token[0], "MUL") == 0 ){
+        strcat(instr_bin_str,ad001);
+    } else if(strcmp(token[0], "SUB") == 0 ){
+        strcat(instr_bin_str,ad010);
+    } else if(strcmp(token[0], "DIV") == 0 ){
+        strcat(instr_bin_str,ad011);
+    } else if(strcmp(token[0], "AND") == 0 ){
+        strcat(instr_bin_str,ad000);
+    }else if(strcmp(token[0], "OR") == 0 ){
+        strcat(instr_bin_str,ad010);
+    } else if(strcmp(token[0], "XOR") == 0){
+        strcat(instr_bin_str,ad011);
+    }
+
+
+    if(strcmp(token[3], "R1") == 0 ){
+        strcat(instr_bin_str,ad001);
+    }else if(strcmp(token[3], "R2") == 0 ){
+        strcat(instr_bin_str,ad010);
+    }else if(strcmp(token[3], "R3") == 0 ){
+        strcat(instr_bin_str,ad011);
+    }else if(strcmp(token[3], "R0") == 0 ){
+        strcat(instr_bin_str,ad000);
+    }
+    strcat(instr_bin_str,"\0");
+
+    return 0;
+}
+
+//int parse_reg 			(char reg_num, char* instr_bin_str){
+//    char ad000[] = "000";
+//    char ad001[] = "001";
+//    char ad010[] = "010";
+//    char ad011[] = "011";
+//
+//
+//
+//    return 0;
+//}
+//int parse_add 			(char* instr, char* instr_bin_str ){
+//
+//    return 0;
+//}
+//int parse_mul 			(char* instr, char* instr_bin_str ){
+//    return 0;
+//}
